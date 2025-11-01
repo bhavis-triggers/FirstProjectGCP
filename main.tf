@@ -2,6 +2,8 @@ resource "google_storage_bucket" "website"{
   name = "example-website-bucket-bhavi"
   location = "asia-south2"
 }
+##testing functionality
+
 #making object publicly accessible
 resource "google_storage_object_access_control" "public_access" {
   object = google_storage_bucket_object.website_index.name
