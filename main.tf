@@ -1,4 +1,27 @@
-resource "google_service_account" "default" {
+resource "google_storage_bucket" "website"{
+  name = "example-website-bucket-bhavi"
+  location = "asia-south2"
+}
+#making object publicly accessible
+resource "google_storage_object_access_control" "public_access" {
+  object = google_storage_bucket_object.website_index.name
+  bucket = google_storage_bucket.website.name
+  role   = "READER"
+  entity = "allUsers"
+}
+#update index.html to bucket
+resource "google_storage_bucket_object" "website_index" {
+  name   = "index.html"
+  bucket = google_storage_bucket.website.name
+  source = "../website/index.html"
+}
+#reserving static external ip for lb
+resource "google_compute_global_address" "website_ip" {
+  name = "website-ip-lb"
+}
+
+
+/*resource "google_service_account" "default" {
   account_id   = "my-custom-sa"
   display_name = "Custom SA for VM Instance"
 }
@@ -43,4 +66,4 @@ resource "google_compute_instance" "default" {
     email  = google_service_account.default.email
     scopes = ["cloud-platform"]
   }
-}
+}*/

@@ -1,13 +1,20 @@
-terraform{
-    required_version=">1.4.0"
-    required_provider{
-        google = {
-            source"hashicorp/google"
-            version="~>4.50.0"
-        }
+provider "google" {
+  credentials = file(var.gcp_svc_key)
+  project    = var.gcp_project_id
+  region     = var.gcp_region
+}
+
+/*terraform {
+  required_version = ">1.4.0"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "6.50.0"
     }
+  }
 }
-provider "google"{
-    project="FirstProjectGCP2"
-    region="us-central1"
-}
+
+provider "google" {
+  project = "gleaming-nomad-474505-r3"
+  region  = "asia-south2"
+}*/
